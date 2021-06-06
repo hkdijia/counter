@@ -1,21 +1,31 @@
 package com.gotkx.counter.controller;
 
 import com.gotkx.counter.bean.CounterRes;
+import com.gotkx.counter.bean.res.Account;
 import com.gotkx.counter.bean.res.CaptchaRes;
 import com.gotkx.counter.cache.CacheType;
 import com.gotkx.counter.cache.RedisStringCache;
+import com.gotkx.counter.service.AccountService;
 import com.gotkx.counter.util.Captcha;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import thirdpart.uuid.GudyUuid;
 
 import java.io.IOException;
 
+import static com.gotkx.counter.bean.res.CounterRes.FAIL;
+import static com.gotkx.counter.bean.res.CounterRes.RELOGIN;
+
 @RestController
 @RequestMapping("/login")
 @Log4j2
 public class LoginController {
+
+    @Autowired
+    private AccountService accountService;
 
     @RequestMapping("/captcha")
     public CounterRes captcha() throws IOException {
@@ -31,6 +41,24 @@ public class LoginController {
         return new CounterRes(res);
     }
 
-    //@RequestMapping("/userlogin")
+    @RequestMapping("/userlogin")
+    public CounterRes login(@RequestParam long uid,
+                            @RequestParam String password,
+                            @RequestParam String captcha,
+                            @RequestParam String captchaId) throws Exception{
+
+        Account account = accountService.login(uid, password, captcha, captchaId);
+
+        if(account == null){
+            return new CounterRes(FAIL, "用户名密码/验证码错误，登录失败",null);
+        }else {
+            return new CounterRes(account);
+        }
+    }
+
+    @RequestMapping("/loginfail")
+    public CounterRes loginfail(){
+        return new CounterRes(RELOGIN,"请重新登陆",null);
+    }
 
 }
