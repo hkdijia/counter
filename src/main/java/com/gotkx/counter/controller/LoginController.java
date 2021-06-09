@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import static com.gotkx.counter.bean.res.CounterRes.FAIL;
 import static com.gotkx.counter.bean.res.CounterRes.RELOGIN;
+import static com.gotkx.counter.bean.res.CounterRes.SUCCESS;
 
 @RestController
 @RequestMapping("/login")
@@ -59,6 +60,28 @@ public class LoginController {
     @RequestMapping("/loginfail")
     public CounterRes loginfail(){
         return new CounterRes(RELOGIN,"请重新登陆",null);
+    }
+
+
+    //退出登录
+    @RequestMapping("/logout")
+    public CounterRes logout(@RequestParam String token){
+        accountService.logout(token);
+        return new CounterRes(SUCCESS,"退出成功",null);
+    }
+
+
+    @RequestMapping("pwdupdate")
+    public CounterRes pwdUpdate(@RequestParam int uid,
+                                @RequestParam String oldpwd,
+                                @RequestParam String newpwd){
+        boolean res = accountService.updatePwd(uid, oldpwd, newpwd);
+        if(res){
+            return new CounterRes(SUCCESS,"密码更新成功",null);
+        }else {
+            return new CounterRes(FAIL,"密码更新失败",null);
+        }
+
     }
 
 }

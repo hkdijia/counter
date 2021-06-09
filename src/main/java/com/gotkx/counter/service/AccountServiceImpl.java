@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
             Date date = new Date();
             DbUtil.updateLoginTime(
                     uid,
-                    TimeformatUtil.yyyyMMdd(date),
+                    TimeformatUtil.yyyyMMdd_(date),
                     TimeformatUtil.hhMMss(date));
 
             return account;

@@ -9,12 +9,18 @@ public class TimeformatUtil {
 
     private static final String YYYY_MM_DD = "yyyyMMdd";
 
+    private static final String YYYY_MM_DD_ = "yyyy-MM-dd";
+
     private static final String HH_MM_SS = "HH:mm:ss";
 
     private static final String YYYY_MM_DD_HH_MM_SS = "yyyyMMdd HH:mm:ss";
 
     public static String yyyyMMdd(Date date){
         return DateFormatUtils.format(date,YYYY_MM_DD);
+    }
+
+    public static String yyyyMMdd_(Date date){
+        return DateFormatUtils.format(date,YYYY_MM_DD_);
     }
 
     public static String yyyyMMdd(long timestamp){

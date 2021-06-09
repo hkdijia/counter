@@ -13,18 +13,29 @@
             t.modifyTime as lastLoginTime
         FROM
             t_user t
-        WHERE t.uid = #{UId}
-            AND t.password = #{Password}
+        WHERE t.uid = #{uid}
+            AND t.password = #{password}
     </select>
 
     <update id="updateAccountLoginTime"
             parameterType="hashmap">
-        UPDATE t_user SET
+        UPDATE t_user
+        SET
             modifyDate = #{modifyDate},
             modifyTime = #{modifyTime}
-        WHERE uid = #{UId}
+        WHERE uid = #{uid}
     </update>
 
+    <update id="updatePwd"
+            parameterType="hashmap">
+        UPDATE t_user
+        SET
+              password = #{newPwd}
+        WHERE
+              uid = #{uid}
+        AND
+              password = #{oldPwd}
+    </update>
 
 
 </mapper>
