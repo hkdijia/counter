@@ -1,12 +1,7 @@
 package com.gotkx.counter.util;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

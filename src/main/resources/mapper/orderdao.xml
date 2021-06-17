@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderMapper">
+
+    <!--资金类-->
+    <select id="queryBalance" resultType="long">
+        SELECT
+            t.balance
+        FROM
+            t_user t
+        WHERE t.uid = #{uid,jdbcType=INTEGER}
+    </select>
+
+    <!--持仓类-->
+    <select id="queryPosi" resultType="com.gotkx.counter.bean.res.PosiInfo">
+        SELECT
+            t.id,
+            t.uid,
+            t.code,
+            t.cost,
+            t.count,
+            s.name
+        FROM
+            t_posi t,
+            t_stock s
+        WHERE t.uid = #{uid,jdbcType=INTEGER}
+                AND t.code = s.code
+    </select>
+
+    <!--委托类-->
+    <select id="queryOrder" resultType="com.gotkx.counter.bean.res.OrderInfo">
+        SELECT
+            t.id,
+            t.uid,
+            t.code,
+            s.name,
+            t.direction,
+            t.type,
+            t.price,
+            t.ocount,
+            t.status,
+            t.date,
+            t.time
+        FROM
+            t_order t,
+            t_stock s
+        WHERE t.uid = #{uid,jdbcType=INTEGER}
+          AND t.code = s.code
+    </select>
+
+    <!--订单处理类-->
+    <insert id="saveOrder" parameterType="hashmap">
+        INSERT INTO
+            t_order(
+            uid,
+            code,
+            direction,
+            type,
+            price,
+            ocount,
+            status,
+            date,
+            time
+        )VALUES (
+            #{uid},#{code},#{direction},#{type},#{price},#{oCount},#{status},#{data},#{time},
+        )
+        <selectKey keyColumn="id" resultType="int" keyProperty="ID" order="AFTER">
+            SELETCT last_insert_rowid()
+        </selectKey>
+    </insert>
+
+    <!--成交类-->
+    <select id="queryTrade" resultType="com.gotkx.counter.bean.res.OrderInfo">
+        SELECT
+            t.id,
+            t.uid,
+            t.code,
+            s.name,
+            t.direction,
+            t.price,
+            t.tcount,
+            t.date,
+            t.time
+        FROM
+            t_trade t,
+            t_stock s
+        WHERE t.uid = #{uid,jdbcType=INTEGER}
+          AND t.code = s.code
+    </select>
+</mapper>

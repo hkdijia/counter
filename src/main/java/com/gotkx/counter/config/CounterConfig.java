@@ -1,4 +1,4 @@
-package com.gotkx.counter;
+package com.gotkx.counter.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class CounterConfig {
 
 
+    /////////////////////会员号////////////////////////////////
     @Value("${counter.id}")
     private short id;
 
+    /////////////////////UUID 相关配置////////////////////////////////
     @Value("${counter.dataCenterId}")
     private long dataCenterId;
 

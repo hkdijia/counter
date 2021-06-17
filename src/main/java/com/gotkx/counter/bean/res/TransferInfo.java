@@ -2,6 +2,10 @@ package com.gotkx.counter.bean.res;
 
 import lombok.*;
 
+/**
+ * 成交类
+ */
+
 @Setter
 @Getter
 @ToString
