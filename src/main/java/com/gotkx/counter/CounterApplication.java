@@ -1,5 +1,6 @@
 package com.gotkx.counter;
 
+import com.gotkx.counter.config.CounterConfig;
 import com.gotkx.counter.util.DbUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

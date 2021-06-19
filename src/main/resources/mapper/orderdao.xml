@@ -49,7 +49,7 @@
     </select>
 
     <!--订单处理类-->
-    <insert id="saveOrder" parameterType="hashmap">
+    <insert id="saveOrder" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             t_order(
             uid,
@@ -62,11 +62,8 @@
             date,
             time
         )VALUES (
-            #{uid},#{code},#{direction},#{type},#{price},#{oCount},#{status},#{data},#{time},
+            #{uid},#{code},#{direction},#{type},#{price},#{oCount},#{status},#{data},#{time}
         )
-        <selectKey keyColumn="id" resultType="int" keyProperty="ID" order="AFTER">
-            SELETCT last_insert_rowid()
-        </selectKey>
     </insert>
 
     <!--成交类-->
